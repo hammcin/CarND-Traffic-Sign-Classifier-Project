@@ -45,20 +45,28 @@ Here is a link to my [project code](./Traffic_Sign_Classifier.ipynb).
 
 #### 1. Provide a basic summary of the data set. In the code, the analysis should be done using python, numpy and/or pandas methods rather than hardcoding results manually.
 
-I used the pandas library to calculate summary statistics of the traffic
+I used the numpy library to calculate summary statistics of the traffic
 signs data set:
 
-* The size of training set is ?
-* The size of the validation set is ?
-* The size of test set is ?
-* The shape of a traffic sign image is ?
-* The number of unique classes/labels in the data set is ?
+* The size of training set is 34799 images
+* The size of the validation set is 4410 images
+* The size of test set is 12630 images
+* The shape of a traffic sign image is (32, 32, 3)
+* The number of unique classes/labels in the data set is 43
 
 #### 2. Include an exploratory visualization of the dataset.
 
-Here is an exploratory visualization of the data set. It is a bar chart showing how the data ...
+Here is an exploratory visualization of the data set. The first figure is a histogram of the class labels for the training set:
 
 ![alt text][image1]
+
+The next figure is a histogram of the class labels for the validation set:
+
+![alt text][image2]
+
+The last figure is a histogram of the class labels for the test set:
+
+![alt text][image3]
 
 ### Design and Test a Model Architecture
 
