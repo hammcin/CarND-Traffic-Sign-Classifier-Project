@@ -120,8 +120,6 @@ My final model consisted of the following layers:
 | Dropout				        |keep probability = 0.5 						            |
 | Fully connected		    | Input = 84, Output = 43        				        |
 | Softmax				        |												                        |
-|						            |												                        |
-|						            |												                        |
 
 
 
@@ -155,42 +153,86 @@ The values of my accuracy on the training and validation sets are both high, so 
 
 Here are five German traffic signs that I found on the web:
 
-![alt text][image4] ![alt text][image5] ![alt text][image6]
-![alt text][image7] ![alt text][image8]
+![alt text][image7] ![alt text][image8] ![alt text][image9]
+![alt text][image10] ![alt text][image11]
 
-The first image might be difficult to classify because ...
+The images I collected from the web are all very clear images of the signs.  The lighting conditions appear to be good in all the images with the exception of, possibly, the first sign, which is a Priority Road sign.  All the images are cropped so that the traffic sign is in the center of the image, without much background.  Problems may arise with the second (Yield sign) and fourth (Roundabout Mandatory sign) images due to perspective transforms.  Also, the fourth image (Roundabout Mandatory sign) may blend in some with the blue sky behind it.
 
 #### 2. Discuss the model's predictions on these new traffic signs and compare the results to predicting on the test set. At a minimum, discuss what the predictions were, the accuracy on these new predictions, and compare the accuracy to the accuracy on the test set (OPTIONAL: Discuss the results in more detail as described in the "Stand Out Suggestions" part of the rubric).
 
 Here are the results of the prediction:
 
-| Image			        |     Prediction	        					|
+| Image			            |     Prediction	        					            |
 |:---------------------:|:---------------------------------------------:|
-| Stop Sign      		| Stop sign   									|
-| U-turn     			| U-turn 										|
-| Yield					| Yield											|
-| 100 km/h	      		| Bumpy Road					 				|
-| Slippery Road			| Slippery Road      							|
+| Priority Road    		  | Priority Road   								              |
+| Yield     			      | Yield 										                    |
+| No Entry				      | No Entry										                  |
+| Roundabout Mandatory	| Right-of-way at the Next Intersection			    |
+| Bicycles Crossing		  | Priority Road      								            |
 
 
-The model was able to correctly guess 4 of the 5 traffic signs, which gives an accuracy of 80%. This compares favorably to the accuracy on the test set of ...
+The model was able to correctly guess 3 of the 5 traffic signs, which gives an accuracy of 60%. This does not compare favorably to the accuracy on the test set of 0.959.
+
+I believe the reason my classifier accurately predicted the classes: Priority Road, Yield, and No Entry, was because of the number of examples available for training the classifier on these classes: 11340, 11520, 5940, respectively.  In contrast, the classifier did not not accurately predict the classes: Roundabout Mandatory and Bicycles Crossing, where the number of training examples were 1800 and 1440, respectively.  It seems that the number of examples available for training had a strong impact on the accuracy of the model for those classes.
+
+| Class Label | Number of Training Examples | Training Accuracy |
+|:-----------:|:---------------------------:|:-----------------:|
+| 12          | 11340                       | 0.976             |
+| 13          | 11520                       | 0.994             |
+| 17          | 5940                        | 0.985             |
+| 40          | 1800                        | 0.873             |
+| 29          | 1440                        | 0.944             |
 
 #### 3. Describe how certain the model is when predicting on each of the five new images by looking at the softmax probabilities for each prediction. Provide the top 5 softmax probabilities for each image along with the sign type of each probability. (OPTIONAL: as described in the "Stand Out Suggestions" part of the rubric, visualizations can also be provided such as bar charts)
 
-The code for making predictions on my final model is located in the 11th cell of the Ipython notebook.
+The code for making predictions on my final model is located in the 63rd cell of the Ipython notebook.
 
-For the first image, the model is relatively sure that this is a stop sign (probability of 0.6), and the image does contain a stop sign. The top five soft max probabilities were
+For the first image, the model is not sure about its prediction that this is a Road Work sign (probability of 0.40), and the image contains a Bicycles Crossing sign. The top five soft max probabilities were
 
-| Probability         	|     Prediction	        					|
+| Probability         	|     Prediction	        					            |
 |:---------------------:|:---------------------------------------------:|
-| .60         			| Stop sign   									|
-| .20     				| U-turn 										|
-| .05					| Yield											|
-| .04	      			| Bumpy Road					 				|
-| .01				    | Slippery Road      							|
+| 0.68         			    | Priority Road   									            |
+| 0.21     				      | Ahead Only 							                      |
+| 0.08					        | Turn Left Ahead								                |
+| 0.00	      			    | Right-of-way at the Next Intersection					|
+| 0.00				          | Vehicles Over 3.5 Metric Tons Prohibited			|
 
+For the second image, the model is completely sure that this is a No Entry sign (probability of 1.00), and the image does contain a No Entry sign. The top five soft max probabilities were
 
-For the second image ...
+| Probability         	|     Prediction	        					            |
+|:---------------------:|:---------------------------------------------:|
+| 1.00         			    | No Entry   									                  |
+| 0.00     				      | Speed Limit (20km/h) 								          |
+| 0.00					        | Speed Limit (30km/h)									        |
+| 0.00	      			    | Speed Limit (50km/h)					 						    |
+| 0.00				          | Speed Limit (60km/h)			                    |
 
-### (Optional) Visualizing the Neural Network (See Step 4 of the Ipython notebook for more details)
-#### 1. Discuss the visual output of your trained network's feature maps. What characteristics did the neural network use to make classifications?
+For the third image, the model is completely sure that this is a Priority Road sign (probability of 1.00), and the image does contain a Priority Road sign. The top five soft max probabilities were
+
+| Probability         	|     Prediction	        					            |
+|:---------------------:|:---------------------------------------------:|
+| 1.00         			    | Priority Road   								              |
+| 0.00     				      | No Entry 							                        |
+| 0.00					        | Roundabout Mandatory											    |
+| 0.00	      			    | No Passing					 				                  |
+| 0.00				          | Speed Limit (20km/h)							            |
+
+For the fourth image, the model is not sure about its prediction that this is a Right-of-way at the Next Intersection sign (probability of 0.49), and the image contains a Roundabout Mandatory sign. The top five soft max probabilities were
+
+| Probability         	|     Prediction	        					            |
+|:---------------------:|:---------------------------------------------:|
+| 0.39         			    | Right-of-way at the Next Intersection   		  |
+| 0.16     				      | Turn Left Ahead 									            |
+| 0.11					        | Speed Limit (60km/h)									        |
+| 0.07	      			    | Children Crossing					 		                |
+| 0.05				          | Ahead Only					                          |
+
+For the fifth image, the model is completely sure that this is a Yield sign (probability of 1.00), and the image does contain a Yield sign. The top five soft max probabilities were
+
+| Probability         	|     Prediction	        					            |
+|:---------------------:|:---------------------------------------------:|
+| 1.00         			    | Yield   										                  |
+| 0.00     				      | Speed Limit (20km/h) 							            |
+| 0.00					        | Speed Limit (30km/h)							            |
+| 0.00	      			    | Speed Limit (50km/h)					 		            |
+| 0.00				          | Speed Limit (60km/h)							            |
