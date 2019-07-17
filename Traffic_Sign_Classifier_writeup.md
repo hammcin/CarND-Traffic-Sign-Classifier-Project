@@ -72,65 +72,81 @@ The last figure is a histogram of the class labels for the test set:
 
 #### 1. Describe how you preprocessed the image data. What techniques were chosen and why did you choose these techniques? Consider including images showing the output of each preprocessing technique. Pre-processing refers to techniques such as converting to grayscale, normalization, etc. (OPTIONAL: As described in the "Stand Out Suggestions" part of the rubric, if you generated additional data for training, describe why you decided to generate additional data, how you generated the data, and provide example images of the additional data. Then describe the characteristics of the augmented training set like number of images in the set, number of images for each class, etc.)
 
-As a first step, I decided to convert the images to grayscale because ...
+First, I decided to generate additional data because this was done in the published baseline model on this problem (Sermanet, P. and LeCun, Y. Traffic Sign Recognition with Multi-Scale Convolutional Networks.).
 
-Here is an example of a traffic sign image before and after grayscaling.
+The code I used for my data augmentation came from [here](https://medium.com/ymedialabs-innovation/data-augmentation-techniques-in-cnn-using-tensorflow-371ae43d5be9).
 
-![alt text][image2]
+I also performed data augmentation because the best way to improve accuracy is to use more data to train the model.  An easy way to generate more data is to perform augmentation using such tranformations as scaling, translation, and rotation because the model is intrinsically invariant to these transformations.
 
-As a last step, I normalized the image data because ...
+To add more data to the the data set, I used the following techniques: scaling ([.9,1.1] ratio), translation ([-2,2] pixels for both x- and y- directions), and rotation ([-15,+15] degrees) because the model is intrinsically invariant to these transformations.
 
-I decided to generate additional data because ...
+Here are examples of some of the original images from that training set and some augmented images:
 
-To add more data to the the data set, I used the following techniques because ...
+![alt text][image6]
 
-Here is an example of an original image and an augmented image:
+The difference between the original data set and the augmented data set is the following: I generated 5 additional data sets from the original training set using random scaling, translation, and rotation.  After data augmentation, I had a final total of 208794 images for my training set.
 
-![alt text][image3]
+The difference that data augmentation made for the number of images available for training can be seen by comparing the original histogram for class labels in the training set with the new histogram for class labels in the training set after augmentation:
 
-The difference between the original data set and the augmented data set is the following ...
+![alt text][image4]
+
+Next, I decided to convert the images to grayscale because in the published baseline model on this problem (Sermanet, P. and LeCun, Y. Traffic Sign Recognition with Multi-Scale Convolutional Networks.), grayscaling the images improved the accuracy of the classifications.  The reason for the improvement may be that grayscaling simplifies the data so that it is easier for the model to learn.
+
+Here is an example of a traffic sign image before and after grayscaling:
+
+![alt text][image5]
+
+As a last step, I normalized the image data because to improve the numerical stability of the calculations in the model and so that the classification is a well-conditioned problem.
 
 
 #### 2. Describe what your final model architecture looks like including model type, layers, layer sizes, connectivity, etc.) Consider including a diagram and/or table describing the final model.
 
 My final model consisted of the following layers:
 
-| Layer         		|     Description	        					|
+| Layer         		    |     Description	        					            |
 |:---------------------:|:---------------------------------------------:|
-| Input         		| 32x32x3 RGB image   							|
-| Convolution 3x3     	| 1x1 stride, same padding, outputs 32x32x64 	|
-| RELU					|												|
-| Max pooling	      	| 2x2 stride,  outputs 16x16x64 				|
-| Convolution 3x3	    | etc.      									|
-| Fully connected		| etc.        									|
-| Softmax				| etc.        									|
-|						|												|
-|						|												|
+| Input         		    | 32x32x1 Grayscale image  						          |
+| Convolution 5x5     	| 1x1 stride, valid padding, outputs 28x28x6 	  |
+| RELU					        |												                        |
+| Max pooling	      	  | 2x2 stride,  outputs 14x14x6 					        |
+| Convolution 5x5	      | 1x1 stride, valid padding, outputs 10x10x16  	|
+| RELU					        |												                        |
+| Max pooling	      	  | 2x2 stride,  outputs 5x5x16 					        |
+| Fully connected		    | Input = 400, Output = 120        				      |
+| RELU					        |												                        |
+| Dropout				        |keep probability = 0.5 						            |
+| Fully connected		    | Input = 120, Output = 84        				      |
+| RELU					        |												                        |
+| Dropout				        |keep probability = 0.5 						            |
+| Fully connected		    | Input = 84, Output = 43        				        |
+| Softmax				        |												                        |
+|						            |												                        |
+|						            |												                        |
 
 
 
 #### 3. Describe how you trained your model. The discussion can include the type of optimizer, the batch size, number of epochs and any hyperparameters such as learning rate.
 
-To train the model, I used an ....
+To train the model, I used an Adam Optimizer, a batch size of 128, 50 epochs, a learning rate of 0.001, and a dropout probability of 0.5.  Additionally, I initialized my model with a truncated normal distribution with mean = 0 and standard deviation = 0.1.  I initialized the biases to 0.
 
 #### 4. Describe the approach taken for finding a solution and getting the validation set accuracy to be at least 0.93. Include in the discussion the results on the training, validation and test sets and where in the code these were calculated. Your approach may have been an iterative process, in which case, outline the steps you took to get to the final solution and why you chose those steps. Perhaps your solution involved an already well known implementation or architecture. In this case, discuss why you think the architecture is suitable for the current problem.
 
 My final model results were:
-* training set accuracy of ?
-* validation set accuracy of ?
-* test set accuracy of ?
+* training set accuracy of 0.999
+* validation set accuracy of 0.975
+* test set accuracy of 0.959
 
-If an iterative approach was chosen:
-* What was the first architecture that was tried and why was it chosen?
-* What were some problems with the initial architecture?
-* How was the architecture adjusted and why was it adjusted? Typical adjustments could include choosing a different model architecture, adding or taking away layers (pooling, dropout, convolution, etc), using an activation function or changing the activation function. One common justification for adjusting an architecture would be due to overfitting or underfitting. A high accuracy on the training set but low accuracy on the validation set indicates over fitting; a low accuracy on both sets indicates under fitting.
-* Which parameters were tuned? How were they adjusted and why?
-* What are some of the important design choices and why were they chosen? For example, why might a convolution layer work well with this problem? How might a dropout layer help with creating a successful model?
+I chose to use the LeNet architecture.  I chose this architecture because it performs well on MNIST.  When I first tried LeNet, I observed that the accuracy on the training set was high, but the accuracy on the validation set was low.  This led me to believe the model architecture was doing a good job of learning the data, but that the data set I was using was not the best.
 
-If a well known architecture was chosen:
-* What architecture was chosen?
-* Why did you believe it would be relevant to the traffic sign application?
-* How does the final model's accuracy on the training, validation and test set provide evidence that the model is working well?
+At this point, I decided to learn more about the published baseline model on this problem (Sermanet, P. and LeCun, Y. Traffic Sign Recognition with Multi-Scale Convolutional Networks.).  The easiest change that I thought of that I could make from reading the paper was to change from using RGB images to grayscale images.  This resulted in a large gain in accuracy on the validation set.  The validation set accuracy was high, but not as high as I needed it.  One important lesson I learned from grayscaling the images was that I needed to grayscale the images first and then normalize the images, in that order.
+
+The next difference I noticed in my model and the published baseline model was that the baseline model employed data augmentation.  I incorporated the same data augmentation used in the baseline model into my model (scaling, translation, and rotation).  Making this change improved my accuracy on the validation set to where I needed it to be.
+
+The last change I made was to incorporate dropout layers, train for a large number of epochs (50) and use early stopping.  Making this last change got the accuracy of my model to its final value.
+
+From my experience working on this problem, the most important changes that I made to my pipeline that made the biggest differences in my accuracy were grayscaling the images and performing data augmentation.
+
+The values of my accuracy on the training and validation sets are both high, so I do not believe my model is either over- or under-fitting.
 
 
 ### Test a Model on New Images
