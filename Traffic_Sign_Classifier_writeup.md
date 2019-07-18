@@ -25,11 +25,11 @@ The goals / steps of this project are the following:
 [image4]: ./Figures/aug_train_class_hist.jpg "Augmented Train Class Histogram"
 [image5]: ./Figures/grayscale.jpg "Grayscaling"
 [image6]: ./Figures/data_aug.jpg "Augmented Data"
-[image7]: ./german-traffic-sign-examples/bicycles-crossing.jpg "Bicycles Crossing Traffic Sign"
-[image8]: ./german-traffic-sign-examples/no-entry.jpg "No Entry Traffic Sign"
-[image9]: ./german-traffic-sign-examples/priority-road.jpg "Priority Road Traffic Sign"
-[image10]: ./german-traffic-sign-examples/roundabout-mandatory.jpg "Roundabout Mandatory Traffic Sign"
-[image11]: ./german-traffic-sign-examples/yield.jpg "Yield Traffic Sign"
+[image7]: ./Figures/bicycles-crossing.jpg "Bicycles Crossing Traffic Sign"
+[image8]: ./Figures/no-entry.jpg "No Entry Traffic Sign"
+[image9]: ./Figures/priority-road.jpg "Priority Road Traffic Sign"
+[image10]: ./Figures/roundabout-mandatory.jpg "Roundabout Mandatory Traffic Sign"
+[image11]: ./Figures/yield.jpg "Yield Traffic Sign"
 
 ## Rubric Points
 ### Here I will consider the [rubric points](https://review.udacity.com/#!/rubrics/481/view) individually and describe how I addressed each point in my implementation.  
