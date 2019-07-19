@@ -33,6 +33,8 @@ The goals / steps of this project are the following:
 
 Here is a link to my [project code](./Traffic_Sign_Classifier.ipynb).
 
+If you have trouble with the above link, here is a link to my [project code](./Traffic_Sign_Classifier.pdf) as a pdf.
+
 ### Data Set Summary & Exploration
 
 #### 1. Provide a basic summary of the data set. In the code, the analysis should be done using python, numpy and/or pandas methods rather than hardcoding results manually.
